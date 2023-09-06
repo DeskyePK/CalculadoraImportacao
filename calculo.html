@@ -47,7 +47,8 @@
             let icms = impostoso / 0.83;
             let icmso = icms * 0.17;
             let impostocompleto = impostoso + icmso;
-
+            const audio = new Audio('audio.mp3');
+            audio.play();
             document.getElementById("resultado").innerHTML = "Valor Total da Compra + Impostos: R$ " + impostocompleto.toFixed(2);
 
         } else {
