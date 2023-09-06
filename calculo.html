@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Taxa Aliexpress</title>
+</head>
+<body>
+    <div class="logo">
+        <h1>Aliexpress</h1>
+        <h2>Calculadora da Taxa + Remessa Conforme</h2>
+    </div>
+
+    <div class="container">
+        <div class="Contas">
+            <form class="calculadora">
+                <label>Valor Produto : </label>
+                <input type="text" pattern="[0-9]*" placeholder="Valor Produto" id="valorProduto" />
+                <label>Valor Frete : </label>
+                <input type="text" pattern="[0-9]*" placeholder="Valor Frete" id="valorFrete" />
+                <button type="button" onclick="calcular()">Enviar</button>
+            </form>
+        </div>
+        <div id="resultado"></div>
+    </div>
+</body>
+
+<script>
+    function calcular() {
+        let valorProduto = document.querySelector("#valorProduto").value;
+        let valorFrete = document.querySelector("#valorFrete").value;
+
+        if (valorFrete === "") {
+            valorFrete = 0;
+        }
+
+        if (valorProduto === "") {
+            valorProduto = 0;
+        }
+
+        const valorTotal = parseFloat(valorProduto) + parseFloat(valorFrete);
+        const Dolar = valorTotal / 50;
+
+        if (Dolar >= 5) {
+            let impostoso = valorTotal + (valorTotal * 0.6);
+            let icms = impostoso / 0.83;
+            let icmso = icms * 0.17;
+            let impostocompleto = impostoso + icmso;
+
+            document.getElementById("resultado").innerHTML = "Valor Total da Compra + Impostos: R$ " + impostocompleto.toFixed(2);
+
+        } else {
+            let impostoicms = valorTotal + (valorTotal * 0.17);
+
+            document.getElementById("resultado").innerHTML = "Valor Total da Compra: R$ " + impostoicms.toFixed(2);
+        }
+    }
+
+    const input = document.querySelector("input");
+
+    input.addEventListener("keypress", event => {
+        if (!event.key.match(/[0-9,]/)) {
+            event.preventDefault();
+        }
+    });
+</script>
+</html>
